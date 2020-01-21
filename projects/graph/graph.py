@@ -1,25 +1,30 @@
+# g = Graph()
+# g.add_vertex('0')
+# g.add_vertex('1')
+# g.add_vertex('2')
+# g.add_vertex('3')
+# g.add_edge('0', '1')
+
+
 """
 Simple graph implementation
 """
 from util import Stack, Queue  # These may come in handy
-
 class Graph:
-
     """Represent a graph as a dictionary of vertices mapping labels to edges."""
     def __init__(self):
         self.vertices = {}
-
+        self.edges = set()
     def add_vertex(self, vertex_id):
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
-
+        self.vertices[vertex_id] = set()
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        self.edges[v1][v2] = 1
 
     def get_neighbors(self, vertex_id):
         """
