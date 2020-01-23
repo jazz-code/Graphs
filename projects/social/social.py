@@ -1,3 +1,5 @@
+import random
+
 class User:
     def __init__(self, name):
         self.name = name
@@ -14,11 +16,14 @@ class SocialGraph:
         """
         if user_id == friend_id:
             print("WARNING: You cannot be friends with yourself")
+            return False
         elif friend_id in self.friendships[user_id] or user_id in self.friendships[friend_id]:
             print("WARNING: Friendship already exists")
+            return False
         else:
             self.friendships[user_id].add(friend_id)
             self.friendships[friend_id].add(user_id)
+            return True
 
     def add_user(self, name):
         """
@@ -50,20 +55,30 @@ class SocialGraph:
                 # self.users[count] = self.friendships
                 # print(self.users)
                 # count += 1
-                self.add_user(num_users)
-                # print(self.users)
+                self.add_user(f"user {user + 1}")
+                # print("user",self.users)
         else:
             raise IndexError("Users mist be greater than avg number of friendships")
 
-        # Shuffle
-        shuffled_friendships = self.friendships[avg_friendships]
-        import itertools
-        set(itertools.permutations(shuffled_friendships))
 
-        # Create friendships
-        if user1 < user2:
-            self.add_friendship()
-            print(self.friendships)
+        target_friendships = (num_users * avg_friendships)
+        total_friendships = 0
+        collisions = 0
+        while total_friendships < target_friendships:
+            # Create a random friendship
+            user_id = random.randint(1, self.last_id)
+            friend_id = random.randint(1, self.last_id)
+            if self.add_friendship(user_id, friend_id):
+
+        # Shuffle
+        # shuffled_friendships = self.friendships[avg_friendships]
+        # import itertools
+        # set(itertools.permutations(shuffled_friendships))
+
+        # # Create friendships
+        # if user1 < user2:
+        #     self.add_friendship()
+        #     print(self.friendships)
 
     def get_all_social_paths(self, user_id):
         """
