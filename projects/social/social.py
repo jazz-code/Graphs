@@ -60,7 +60,6 @@ class SocialGraph:
         else:
             raise IndexError("Users mist be greater than avg number of friendships")
 
-
         target_friendships = (num_users * avg_friendships)
         total_friendships = 0
         collisions = 0
@@ -69,16 +68,11 @@ class SocialGraph:
             user_id = random.randint(1, self.last_id)
             friend_id = random.randint(1, self.last_id)
             if self.add_friendship(user_id, friend_id):
+                total_friendships += 2
+            else:
+                collisions += 1
 
-        # Shuffle
-        # shuffled_friendships = self.friendships[avg_friendships]
-        # import itertools
-        # set(itertools.permutations(shuffled_friendships))
-
-        # # Create friendships
-        # if user1 < user2:
-        #     self.add_friendship()
-        #     print(self.friendships)
+        print(f"Collisions: {collisions}")
 
     def get_all_social_paths(self, user_id):
         """
