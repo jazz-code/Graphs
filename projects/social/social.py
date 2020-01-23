@@ -43,10 +43,20 @@ class SocialGraph:
         self.users = {}
         self.friendships = {}
         # !!!! IMPLEMENT ME
+        count = 0
+        if num_users > avg_friendships:
+            # Add users
+            for user in range(0, num_users):
+                # self.users[count] = self.friendships
+                # print(self.users)
+                # count += 1
+                self.add_user(num_users)
+                print(self.users)
+            # Create friendships
+        else:
+            raise IndexError("Users mist be greater than avg number of friendships")
 
-        # Add users
-
-        # Create friendships
+        # print(self.users)
 
     def get_all_social_paths(self, user_id):
         """
