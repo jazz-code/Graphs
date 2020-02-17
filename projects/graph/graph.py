@@ -140,9 +140,30 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
-
-    def dfs_recursive(self, starting_vertex):
+        # Create an empty stack, and push the starting vertex ID
+        s = Stack()
+        # Add a PATH starting vertex_id to the stack
+        path = s.push([starting_vertex])
+        # Create an empty Set to store visited verticies
+        visited = set()
+        # While the stack is not empty...
+        while s.size() > 0:
+            # Pop the first PATH
+            path = s.pop()
+            #  Grab the last vertx from the PATH
+            v = path[-1]
+            # Check if it's been visited
+            if v not in visited:
+                # Check if its the target
+                if v == destination_vertex:
+                    # if yes, return the path
+                    return path
+                # If it has not been visited...
+                for neighbor in self.get_neighbors(v):
+                    new_path = list(path)
+                    new_path.append(neighbor)
+                    s.push(new_path)
+    def dfs_recursive(self, starting_vertex, target_value, visited=None, path=None):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -150,8 +171,20 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
-
+        if visited is None:
+            visited = set()
+        if path is None:
+            path = []
+        visited.add(starting_vertex)
+        path = path + [starting_vertex]
+        if starting_vertex == target_value:
+            return path
+        for child_vert in self.vertices[starting_vertex]:
+            if child_vert not in visited:
+                new_path = self.dfs_recursive(child_vert, target_value, visited, path)
+                if new_path:
+                    return new_path
+        return None
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
     # https://github.com/LambdaSchool/Graphs/blob/master/objectives/breadth-first-search/img/bfs-visit-order.png
@@ -222,5 +255,7 @@ if __name__ == '__main__':
         [1, 2, 4, 6]
         [1, 2, 4, 7, 6]
     '''
-    # print(graph.dfs(1, 6))
-    # print(graph.dfs_recursive(1, 6))
+    print("Running DFS")
+    print(graph.dfs(1, 6))
+    print("Running DFS recursive")
+    print(graph.dfs_recursive(1, 6))
