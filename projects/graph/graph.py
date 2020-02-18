@@ -212,18 +212,18 @@ class Graph:
         #         if new_path:
         #             return new_path
         # return None
-
+        pass
         # Check if the node is visited
-        if visited is None:
-            visited = set()
-        # If not...
-        if starting_vertex not in visited:
-            # Mark it as visited
-            visited.add(starting_vertex)
-            print(starting_vertex)
-            # Call DFT recursive on each neighbor
-            for neighbor in self.get_neighbors(starting_vertex):
-                self.dft_recursive(neighbor, visited)
+        # if visited is None:
+        #     visited = set()
+        # # If not...
+        # if starting_vertex not in visited:
+        #     # Mark it as visited
+        #     visited.add(starting_vertex)
+        #     print(starting_vertex)
+        #     # Call DFT recursive on each neighbor
+        #     for neighbor in self.get_neighbors(starting_vertex):
+        #         self.dft_recursive(neighbor, visited)
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
     # https://github.com/LambdaSchool/Graphs/blob/master/objectives/breadth-first-search/img/bfs-visit-order.png
@@ -276,8 +276,8 @@ if __name__ == '__main__':
     '''
     print("Running DFT")
     graph.dft(1)
-    print("Running DFT recursive")
-    graph.dft_recursive(1)
+    # print("Running DFT recursive")
+    # graph.dft_recursive(1)
     '''
     Valid BFS path:
         [1, 2, 4, 6]
@@ -291,5 +291,5 @@ if __name__ == '__main__':
     '''
     print("Running DFS")
     print(graph.dfs(1, 6))
-    print("Running DFS recursive")
-    print(graph.dfs_recursive(1, 6))
+    # print("Running DFS recursive")
+    # print(graph.dfs_recursive(1, 6))
