@@ -38,14 +38,6 @@ def earliest_ancestor(ancestors, starting_node):
         path = q.dequeue()
         # v is last in path
         v = path[-1]
-        print("here")
-        # Check if it's been visited
-        # If it has not been visited...
-        # if v not in visited:
-            # if v == ancestors:
-            # # Mark it as visited
-            #     print(path)
-            #     return path[-1]
         # If the path is longer or equal and the value is smaller, 
         # or if the path is longer, update the ancestor and longer path
         if (len(path) >= max_path_length and v < earliest_ancestor) or (len(path) > max_path_length):
@@ -66,16 +58,6 @@ def earliest_ancestor(ancestors, starting_node):
 ancestors = [(1, 3), (2, 3), (3, 6), (5, 6), (5, 7), (4, 5), (4, 8), (8, 9), (11, 8), (10, 1)]
 
 earliest_ancestor(ancestors, 1), 10
-
-# g = Graph()
-# for pair in ancestors:
-#     g.add_vertex(pair[0])
-#     # print(g.vertices)
-#     g.add_vertex(pair[1])
-#     # print(g.vertices)
-#     g.add_edge(pair[0], pair[1])
-# print("Printing graph.vertices")
-# print(g.vertices)
 
 
 
