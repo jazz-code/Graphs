@@ -1,3 +1,17 @@
+import random
+
+class Stack():
+    def __init__(self):
+        self.stack = []
+    def push(self, value):
+        self.stack.append(value)
+    def pop(self):
+        if self.size() > 0:
+            return self.stack.pop()
+        else:
+            return None
+    def size(self):
+        return len(self.stack)
 class User:
     def __init__(self, name):
         self.name = name
@@ -45,9 +59,26 @@ class SocialGraph:
         # !!!! IMPLEMENT ME
 
         # Add users
-
+        for i in range(num_users):
+            self.add_user(f"User {i + 1}")
         # Create friendships
-
+        # Create a list w/ all possible friendships
+        possible_friendships = []
+        for user_id in self.users:
+            #Larger than friend_id
+            for friend_id in range(user_id + 1, self.last_id + 1):
+                possible_friendships.append((user_id, friend_id))
+        print(f"possible friendships {possible_friendships}")
+        
+        # Shuffle the list
+        random.shuffle(possible_friendships)
+        # Grab the first N total_friendships pairs form the list and create those friendships
+        for i in range(num_users * avg_friendships // 2):
+            frienship = possible_friendships[i]
+            self.add_friendship(frienship[0], frienship[1])
+        # Avg_friendships = total_friendships / num_users
+        # total_friendships = avg_friendships * num_users
+        #  N = total_friendships // 2
     def get_all_social_paths(self, user_id):
         """
         Takes a user's user_id as an argument
@@ -57,14 +88,34 @@ class SocialGraph:
 
         The key is the friend's ID and the value is the path.
         """
+        s = Stack()
+         # Add the starting vertex_id to the stack
+        s.push([user_id])
+        # Create an empty set to store visited nodes
         visited = {}  # Note that this is a dictionary, not a set
-        # !!!! IMPLEMENT ME
+        # While the stack is not empty...
+        while s.size() > 0:
+            # Pop, the first vertex
+            path = s.pop()
+            user = path[-1]
+            # Check if it's been visited
+            # If it has not been visited...
+            if user not in visited:
+                # Mark it as visited
+                visited[user] = path
+                # Then add all neighbors to the top of the stack
+                for friend in self.friendships[user]:
+                    copy_path = path.copy()
+                    copy_path.append(friend)
+                    s.push(copy_path)
         return visited
+
 
 
 if __name__ == '__main__':
     sg = SocialGraph()
     sg.populate_graph(10, 2)
-    print(sg.friendships)
+    # print(f"Users: {sg.users}")
+    print(f"friendships: {sg.friendships}")
     connections = sg.get_all_social_paths(1)
-    print(connections)
+    print(f"Connections: {connections}")
